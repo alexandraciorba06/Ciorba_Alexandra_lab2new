@@ -22,5 +22,6 @@ namespace Ciorba_Alexandra_lab2new.Models
         public int? PublisherID { get; set; }
 
         public Publisher? Publisher { get; set; }
+        public ICollection<BookCategory>? BookCategories { get; set; }
     }
 }

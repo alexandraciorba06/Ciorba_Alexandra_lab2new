@@ -17,5 +17,6 @@ namespace Ciorba_Alexandra_lab2new.Data
         public DbSet<Ciorba_Alexandra_lab2new.Models.Book> Book { get; set; } = default!;
         public DbSet<Ciorba_Alexandra_lab2new.Models.Publisher> Publisher { get; set; } = default!;
         public DbSet<Ciorba_Alexandra_lab2new.Models.Author> Author { get; set; } = default!;
+        public DbSet<Ciorba_Alexandra_lab2new.Models.Category> Category { get; set; } = default!;
     }
 }
