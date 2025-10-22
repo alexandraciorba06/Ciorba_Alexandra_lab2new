@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Ciorba_Alexandra_lab2new.Data;
 using Ciorba_Alexandra_lab2new.Models;
+using Ciorba_Alexandra_lab2new.Models.ViewModels;
 
 namespace Ciorba_Alexandra_lab2new.Pages.Categories
 {
@@ -20,10 +21,28 @@ namespace Ciorba_Alexandra_lab2new.Pages.Categories
         }
 
         public IList<Category> Category { get;set; } = default!;
+        public CategoryIndexData CategoryData { get; set; }
+        public int CategoryID { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int? id)
         {
-            Category = await _context.Category.ToListAsync();
+            CategoryData = new CategoryIndexData();
+            CategoryData.Categories = await _context.Category
+                .Include(i => i.BookCategories)
+                    .ThenInclude(bc => bc.Book)
+                        .ThenInclude(c => c.Author)
+                .OrderBy(c => c.CategoryName)
+                .ToListAsync();
+
+            if (id != null)
+            {
+                CategoryID = id.Value;
+                Category category = CategoryData.Categories
+                    .Where(c => c.ID == id.Value)
+                    .Single();
+                CategoryData.Books = category.BookCategories
+                    .Select(bc => bc.Book);
+            }
         }
     }
 }

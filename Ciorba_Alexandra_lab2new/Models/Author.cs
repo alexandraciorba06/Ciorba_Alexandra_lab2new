@@ -12,8 +12,10 @@ namespace Ciorba_Alexandra_lab2new.Models
 
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
+       
 
-            [Display(Name = "Author")]
+
+        [Display(Name = "Author")]
             public string FullName
             {
                 get { return $"{LastName} {FirstName}"; }

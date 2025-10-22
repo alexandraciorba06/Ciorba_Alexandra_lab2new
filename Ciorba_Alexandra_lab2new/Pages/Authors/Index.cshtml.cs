@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Ciorba_Alexandra_lab2new.Data;
+using Ciorba_Alexandra_lab2new.Models;
+using Ciorba_Alexandra_lab2new.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Ciorba_Alexandra_lab2new.Data;
-using Ciorba_Alexandra_lab2new.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Ciorba_Alexandra_lab2new.Pages.Authors
+
 {
     public class IndexModel : PageModel
     {
@@ -21,9 +23,12 @@ namespace Ciorba_Alexandra_lab2new.Pages.Authors
 
         public IList<Author> Author { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int? id)
         {
-            Author = await _context.Author.ToListAsync();
+           Author = await _context.Author
+                .ToListAsync();
+            {
+            }
         }
     }
 }
