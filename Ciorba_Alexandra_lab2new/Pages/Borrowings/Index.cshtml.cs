@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Ciorba_Alexandra_lab2new.Data;
+using Ciorba_Alexandra_lab2new.Models;
+
+namespace Ciorba_Alexandra_lab2new.Pages.Borrowings
+{
+    public class IndexModel : PageModel
+    {
+        private readonly Ciorba_Alexandra_lab2new.Data.Ciorba_Alexandra_lab2newContext _context;
+
+        public IndexModel(Ciorba_Alexandra_lab2new.Data.Ciorba_Alexandra_lab2newContext context)
+        {
+            _context = context;
+        }
+        public IList<Borrowing> Borrowing { get; set; } = default!;
+
+        public async Task OnGetAsync()
+        {
+            Borrowing = await _context.Borrowings
+                .Include(b => b.Book)
+                    .ThenInclude(b => b.Author)
+                .Include(b => b.Member).ToListAsync();
+        }
+    }
+}

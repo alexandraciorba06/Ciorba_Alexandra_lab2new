@@ -1,12 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Ciorba_Alexandra_lab2new.Data;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<Ciorba_Alexandra_lab2newContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Ciorba_Alexandra_lab2newContext") ?? throw new InvalidOperationException("Connection string 'Ciorba_Alexandra_lab2newContext' not found.")));
+
+builder.Services.AddDbContext<LibraryIdentityContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("Ciorba_Alexandra_lab2newContext") ?? throw new InvalidOperationException("Connectionstring 'Ciorba_Alexandra_lab2newContext' not found."))); 
+
+
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<LibraryIdentityContext>();
 
 var app = builder.Build();
 
