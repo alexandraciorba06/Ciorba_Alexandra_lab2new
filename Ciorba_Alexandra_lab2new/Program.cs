@@ -13,7 +13,7 @@ builder.Services.AddDbContext<LibraryIdentityContext>(options =>options.UseSqlSe
 
 
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<LibraryIdentityContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<LibraryIdentityContext>();
 
 var app = builder.Build();
 

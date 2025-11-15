@@ -50,7 +50,10 @@ namespace Ciorba_Alexandra_lab2new.Pages.Borrowings
                     BookFullName = x.Title + " - " + x.Author.LastName + " " +
                     x.Author.FirstName
                 });
-            ViewData["BookID"] = new SelectList(bookList, "ID", "BookFullName", Borrowing.BookID);
+            var memberList = _context.Member .Select(m => new{m.ID,FullName = m.LastName + " " + m.FirstName  });
+
+            ViewData["MemberID"] = new SelectList(memberList, "ID", "FullName", Borrowing.MemberID);
+
             ViewData["MemberID"] = new SelectList(_context.Member, "ID", "FullName", Borrowing.MemberID);
             return Page();
         }
