@@ -1,6 +1,7 @@
 ﻿using Ciorba_Alexandra_lab2new.Data;
 using Ciorba_Alexandra_lab2new.Models;
 using Ciorba_Alexandra_lab2new.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Ciorba_Alexandra_lab2new.Pages.Publishers
 {
+    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly Ciorba_Alexandra_lab2new.Data.Ciorba_Alexandra_lab2newContext _context;

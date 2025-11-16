@@ -40,16 +40,17 @@ namespace Ciorba_Alexandra_lab2new.Pages.Books
             TitleSort = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             AuthorSort = sortOrder == "author" ? "author_desc" : "author";
 
-             CurrentFilter = searchString; 
+             CurrentFilter = searchString;
 
             BookD.Books = await _context.Book
-                  .Include(b => b.Author)
-                  .Include(b => b.Publisher)
-                  .Include(b => b.BookCategories)
-                  .ThenInclude(b => b.Category)
-                  .AsNoTracking()
-                  .OrderBy(b => b.Title)
-                  .ToListAsync();
+               .Include(b => b.Author)
+               .Include(b => b.Publisher)
+               .Include(b => b.BookCategories)
+               .ThenInclude(b => b.Category)
+               .AsNoTracking()
+               .OrderBy(b => b.Title)
+               .ToListAsync();
+
 
             if (!String.IsNullOrEmpty(searchString))
             {

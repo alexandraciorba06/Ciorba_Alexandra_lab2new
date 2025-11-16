@@ -4,6 +4,11 @@ using Ciorba_Alexandra_lab2new.Data;
 using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy =>
+policy.RequireRole("Admin"));
+});
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<Ciorba_Alexandra_lab2newContext>(options =>
@@ -13,8 +18,14 @@ builder.Services.AddDbContext<LibraryIdentityContext>(options =>options.UseSqlSe
 
 
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<LibraryIdentityContext>();
-
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>().AddEntityFrameworkStores<LibraryIdentityContext>();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/Books");
+    options.Conventions.AllowAnonymousToPage("/Books/Index");
+    options.Conventions.AllowAnonymousToPage("/Books/Details");
+    options.Conventions.AuthorizeFolder("/Members", "AdminPolicy");
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
